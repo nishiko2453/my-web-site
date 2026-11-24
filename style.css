@@ -1,0 +1,1793 @@
+/* ==========================================================================
+   Design Tokens — Pop & Colorful Palette
+   ========================================================================== */
+:root {
+  --bg: #fffbf5;
+  --surface: #ffffff;
+  --surface-subtle: #fff4ec;
+  --header-bg: rgba(255, 251, 245, 0.82);
+  --text: #1e1b4b;
+  --text-muted: #5b557a;
+  --border: #f0e6ff;
+  --border-hover: #c4b5fd;
+
+  /* Vibrant Candy Accents */
+  --pop-pink: #ff4d8d;
+  --pop-orange: #ff8a00;
+  --pop-yellow: #ffd166;
+  --pop-mint: #06d6a0;
+  --pop-cyan: #00bbf9;
+  --pop-violet: #8338ec;
+
+  --accent: var(--pop-pink);
+  --accent-hover: var(--pop-violet);
+  --accent-secondary: var(--pop-cyan);
+
+  --grad-rainbow: linear-gradient(
+    90deg,
+    var(--pop-pink),
+    var(--pop-orange),
+    var(--pop-mint),
+    var(--pop-cyan),
+    var(--pop-violet),
+    var(--pop-pink)
+  );
+  --grad-card-1: linear-gradient(90deg, var(--pop-pink), var(--pop-orange), var(--pop-yellow));
+  --grad-card-2: linear-gradient(90deg, var(--pop-cyan), var(--pop-mint), var(--pop-violet));
+
+  --glow-hero: rgba(255, 77, 141, 0.24);
+  --glow-card-1: rgba(255, 77, 141, 0.2);
+  --glow-card-2: rgba(0, 187, 249, 0.2);
+  --glow-card-3: rgba(255, 209, 102, 0.22);
+  --grid-dot: rgba(131, 56, 236, 0.14);
+
+  --shadow-sm: 0 4px 12px rgba(131, 56, 236, 0.08);
+  --shadow-md: 0 12px 30px rgba(255, 77, 141, 0.14);
+  --shadow-lg: 0 22px 48px rgba(131, 56, 236, 0.2);
+
+  --radius-sm: 12px;
+  --radius-md: 22px;
+  --radius-full: 9999px;
+  --container-width: 960px;
+  --header-height: 68px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-sans: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Hiragino Kaku Gothic ProN",
+    "Yu Gothic", "Meiryo", sans-serif;
+  --font-header-title: "DotGothic16", var(--font-sans);
+  --font-hero-title: "Rampart One", var(--font-sans);
+  --font-lfc-serif: "Cormorant Garamond", "Noto Serif JP", Georgia, serif;
+  --font-lfc-jp: "Noto Serif JP", "Yu Mincho", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Liverpool FC Heritage Tokens */
+  --lfc-red: #c8102e;
+  --lfc-red-deep: #8a0b20;
+  --lfc-red-dark: #5b0614;
+  --lfc-gold: #c9a24b;
+  --lfc-gold-light: #e5c97b;
+  --lfc-teal: #00b2a9;
+  --lfc-bg: #f8f6f2;
+  --lfc-surface: #ffffff;
+  --lfc-surface-alt: #f2eee8;
+  --lfc-ink: #171415;
+  --lfc-muted: #5a5254;
+  --lfc-border: #e3dcd3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #110c24;
+    --surface: #1b1536;
+    --surface-subtle: #271f4d;
+    --header-bg: rgba(17, 12, 36, 0.8);
+    --text: #fdf4ff;
+    --text-muted: #c4b5fd;
+    --border: #31255e;
+    --border-hover: #7c3aed;
+
+    --pop-pink: #ff5da2;
+    --pop-orange: #ff9f1c;
+    --pop-yellow: #ffe066;
+    --pop-mint: #2ef2b6;
+    --pop-cyan: #38d9ff;
+    --pop-violet: #a855f7;
+
+    --glow-hero: rgba(255, 93, 162, 0.28);
+    --glow-card-1: rgba(255, 93, 162, 0.25);
+    --glow-card-2: rgba(56, 217, 255, 0.24);
+    --glow-card-3: rgba(168, 85, 247, 0.26);
+    --grid-dot: rgba(196, 181, 253, 0.18);
+
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 14px 34px rgba(168, 85, 247, 0.25);
+    --shadow-lg: 0 24px 54px rgba(255, 93, 162, 0.26);
+
+    --lfc-bg: #0f0a0c;
+    --lfc-surface: #181013;
+    --lfc-surface-alt: #23161b;
+    --lfc-ink: #f6f1eb;
+    --lfc-muted: #b8aba8;
+    --lfc-border: #332227;
+  }
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 77, 141, 0.06), transparent 36%),
+    radial-gradient(circle at 88% 42%, rgba(0, 187, 249, 0.07), transparent 38%),
+    radial-gradient(circle at 30% 85%, rgba(255, 209, 102, 0.08), transparent 36%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  transition: background-color 0.55s ease, color 0.55s ease;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease,
+    transform 0.25s var(--ease-bounce);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--pop-pink);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--header-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 2px solid var(--border);
+  transition: background-color 0.55s ease, box-shadow 0.45s ease, border-color 0.55s ease;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--grad-rainbow);
+  background-size: 200% 100%;
+  animation: rainbowFlow 6s linear infinite;
+}
+
+.header.is-scrolled {
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: var(--header-height);
+  gap: 16px;
+}
+
+.logo {
+  display: inline-block;
+  font-family: var(--font-header-title);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  background: linear-gradient(90deg, var(--pop-pink), var(--pop-violet), var(--pop-cyan));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.35s var(--ease-bounce), background-position 0.4s ease;
+}
+
+.logo:hover {
+  transform: scale(1.07) rotate(-2deg);
+  background-position: 100% center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav a {
+  position: relative;
+  padding: 6px 14px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  transition: color 0.2s ease, background-color 0.25s ease, transform 0.3s var(--ease-bounce);
+}
+
+.nav a:nth-child(1):hover {
+  color: var(--pop-pink);
+  background-color: rgba(255, 77, 141, 0.12);
+}
+
+.nav a:nth-child(2):hover {
+  color: var(--pop-violet);
+  background-color: rgba(131, 56, 236, 0.12);
+}
+
+.nav a:nth-child(3):hover {
+  color: var(--lfc-red);
+  background-color: rgba(200, 16, 46, 0.12);
+}
+
+.nav a:nth-child(4):hover {
+  color: var(--pop-cyan);
+  background-color: rgba(0, 187, 249, 0.13);
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  transform: translateY(-2px);
+}
+
+.sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 4px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--pop-violet);
+  background-color: var(--surface);
+  border: 2px solid var(--pop-violet);
+  border-radius: var(--radius-full);
+  box-shadow: 2px 2px 0 var(--pop-violet);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.25s ease,
+    border-color 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+}
+
+.sound-toggle:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 3px 3px 0 var(--pop-pink);
+  border-color: var(--pop-pink);
+  color: var(--pop-pink);
+}
+
+.sound-toggle:focus-visible {
+  outline: 3px solid var(--pop-pink);
+  outline-offset: 2px;
+}
+
+.sound-toggle[aria-pressed="false"] {
+  color: var(--text-muted);
+  border-color: var(--border-hover);
+  box-shadow: none;
+  opacity: 0.72;
+}
+
+/* ==========================================================================
+   Hero — Vibrant Blobs + Pop Dot Pattern + Animated Gradient Title
+   ========================================================================== */
+.hero {
+  position: relative;
+  padding: 116px 0 92px;
+  overflow: hidden;
+  --hero-mx: 50%;
+  --hero-my: 45%;
+  --hero-px: 0px;
+  --hero-py: 0px;
+  --hero-spot-opacity: 0;
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Playful pastel polka-dot pattern */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--grid-dot) 2px, transparent 2px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 85% 80% at 50% 45%, #000 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 45%, #000 40%, transparent 100%);
+}
+
+/* Cursor-following candy glow */
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--hero-mx) var(--hero-my),
+    var(--glow-hero),
+    transparent 65%
+  );
+  opacity: calc(0.4 + var(--hero-spot-opacity) * 0.6);
+  transition: opacity 0.3s ease;
+}
+
+/* Floating colorful gradient blobs */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(56px);
+  opacity: 0.42;
+  will-change: transform;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-blob {
+    opacity: 0.32;
+  }
+}
+
+.hero-blob-1 {
+  width: 340px;
+  height: 340px;
+  top: -80px;
+  left: -40px;
+  background: radial-gradient(circle, var(--pop-pink), var(--pop-orange));
+  animation: blobFloat1 9s ease-in-out infinite alternate;
+}
+
+.hero-blob-2 {
+  width: 320px;
+  height: 320px;
+  top: -40px;
+  right: 2%;
+  background: radial-gradient(circle, var(--pop-cyan), var(--pop-mint));
+  animation: blobFloat2 11s ease-in-out infinite alternate;
+}
+
+.hero-blob-3 {
+  width: 280px;
+  height: 280px;
+  bottom: -90px;
+  left: 42%;
+  background: radial-gradient(circle, var(--pop-yellow), var(--pop-violet));
+  animation: blobFloat3 10s ease-in-out infinite alternate;
+}
+
+@keyframes blobFloat1 {
+  0% {
+    transform: translate3d(calc(var(--hero-px) * 0.8), calc(var(--hero-py) * 0.8), 0) scale(1);
+  }
+  100% {
+    transform: translate3d(calc(34px + var(--hero-px) * 0.8), calc(28px + var(--hero-py) * 0.8), 0)
+      scale(1.12);
+  }
+}
+
+@keyframes blobFloat2 {
+  0% {
+    transform: translate3d(calc(var(--hero-px) * -0.7), calc(var(--hero-py) * 0.7), 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(calc(-32px + var(--hero-px) * -0.7), calc(30px + var(--hero-py) * 0.7), 0)
+      scale(0.94);
+  }
+}
+
+@keyframes blobFloat3 {
+  0% {
+    transform: translate3d(calc(var(--hero-px) * 0.5), calc(var(--hero-py) * -0.6), 0) scale(0.95);
+  }
+  100% {
+    transform: translate3d(calc(-24px + var(--hero-px) * 0.5), calc(-22px + var(--hero-py) * -0.6), 0)
+      scale(1.14);
+  }
+}
+
+@keyframes rainbowFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.hero h1 {
+  display: inline-block;
+  font-family: var(--font-hero-title);
+  font-size: clamp(2.75rem, 6.5vw, 4.25rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  background: var(--grad-rainbow);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowFlow 7s linear infinite;
+  filter: drop-shadow(0 6px 18px rgba(255, 77, 141, 0.16));
+}
+
+.hero h1::selection {
+  -webkit-text-fill-color: var(--pop-pink);
+}
+
+.subtitle {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 10px 18px;
+  min-height: 2.6em;
+  font-size: clamp(0.92rem, 1.9vw, 1.05rem);
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: 4px 4px 0 var(--pop-yellow);
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.15em;
+  margin-left: 4px;
+  vertical-align: -0.18em;
+  background: linear-gradient(180deg, var(--pop-pink), var(--pop-cyan));
+  border-radius: 3px;
+  box-shadow: 0 0 10px var(--pop-pink);
+  animation: cursorBlink 0.85s steps(1, end) infinite;
+}
+
+.typing-cursor.is-typing {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes cursorBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Hero bouncy entrance when motion is enabled */
+html.motion-ready .header {
+  animation: headerDrop 0.65s var(--ease-out-expo) both;
+}
+
+html.motion-ready .hero h1 {
+  animation:
+    heroPopIn 0.85s var(--ease-bounce) 0.1s both,
+    rainbowFlow 7s linear infinite;
+}
+
+html.motion-ready .subtitle {
+  animation: heroSubPop 0.7s var(--ease-bounce) 0.28s both;
+}
+
+@keyframes headerDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroPopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(34px) scale(0.88);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes heroSubPop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================================================================
+   Hero — Now Playing Games
+   ========================================================================== */
+.hero-games {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 26px;
+}
+
+.games-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--pop-violet);
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+.games-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--pop-mint);
+  box-shadow: 0 0 8px var(--pop-mint);
+}
+
+.games-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--pop-mint);
+  animation: livePulse 1.8s ease-out infinite;
+}
+
+@keyframes livePulse {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+.games-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.games-list li {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--surface);
+  border: 2px solid var(--game-color, var(--pop-pink));
+  border-radius: var(--radius-full);
+  box-shadow: 3px 3px 0 var(--game-color, var(--pop-pink));
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.25s ease,
+    background-color 0.25s ease, color 0.25s ease;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.games-list li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 15px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.games-list li a::before {
+  content: "▶";
+  font-size: 0.65em;
+  color: var(--game-color, var(--pop-pink));
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.games-list li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    90px circle at var(--mx) var(--my),
+    var(--game-glow, rgba(255, 77, 141, 0.28)),
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.games-list li:nth-child(4n + 1) {
+  --game-color: var(--pop-pink);
+  --game-glow: rgba(255, 77, 141, 0.28);
+  --game-tilt: -2.5deg;
+}
+
+.games-list li:nth-child(4n + 2) {
+  --game-color: var(--pop-cyan);
+  --game-glow: rgba(0, 187, 249, 0.28);
+  --game-tilt: 2.5deg;
+}
+
+.games-list li:nth-child(4n + 3) {
+  --game-color: var(--pop-orange);
+  --game-glow: rgba(255, 138, 0, 0.28);
+  --game-tilt: -2deg;
+}
+
+.games-list li:nth-child(4n + 4) {
+  --game-color: var(--pop-mint);
+  --game-glow: rgba(6, 214, 160, 0.28);
+  --game-tilt: 2deg;
+}
+
+.games-list li:hover {
+  transform: translateY(-3px) scale(1.06) rotate(var(--game-tilt, -2deg));
+  box-shadow: 5px 5px 0 var(--game-color, var(--pop-pink));
+}
+
+.games-list li:hover a::before {
+  transform: translateX(2px) scale(1.2);
+}
+
+.games-list li:hover::after {
+  opacity: 1;
+}
+
+html.motion-ready .games-label {
+  animation: heroSubPop 0.65s var(--ease-bounce) 0.45s both;
+}
+
+html.motion-ready .games-list li {
+  animation: heroSubPop 0.65s var(--ease-bounce) var(--game-delay, 0.55s) both;
+}
+
+html.motion-ready .games-list li:nth-child(1) {
+  --game-delay: 0.54s;
+}
+
+html.motion-ready .games-list li:nth-child(2) {
+  --game-delay: 0.63s;
+}
+
+html.motion-ready .games-list li:nth-child(3) {
+  --game-delay: 0.72s;
+}
+
+html.motion-ready .games-list li:nth-child(n + 4) {
+  --game-delay: 0.8s;
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+.section {
+  padding: 72px 0;
+  border-top: 2px dashed var(--border);
+  scroll-margin-top: var(--header-height);
+  transition: border-color 0.55s ease, background-color 0.55s ease;
+}
+
+.section h2 {
+  position: relative;
+  display: inline-block;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  padding-bottom: 10px;
+}
+
+.section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--grad-rainbow);
+  background-size: 200% auto;
+  border-radius: var(--radius-full);
+  transform-origin: left;
+  animation: rainbowFlow 6s linear infinite;
+  transition: transform 0.75s var(--ease-bounce) 0.15s;
+}
+
+.section > .container > p {
+  color: var(--text-muted);
+  max-width: 68ch;
+  font-size: 1.02rem;
+}
+
+/* ==========================================================================
+   About / Skills — Colorful Candy Pills
+   ========================================================================== */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin-top: 26px;
+}
+
+.skills li {
+  position: relative;
+  overflow: hidden;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--pill-color, var(--pop-pink));
+  background-color: var(--pill-bg, rgba(255, 77, 141, 0.1));
+  border: 2px solid var(--pill-border, rgba(255, 77, 141, 0.35));
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: transform 0.32s var(--ease-bounce), border-color 0.25s ease,
+    box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.skills li:nth-child(4n + 1) {
+  --pill-color: var(--pop-pink);
+  --pill-bg: rgba(255, 77, 141, 0.1);
+  --pill-border: rgba(255, 77, 141, 0.35);
+  --pill-glow: rgba(255, 77, 141, 0.32);
+  --pill-tilt: -3deg;
+}
+
+.skills li:nth-child(4n + 2) {
+  --pill-color: var(--pop-orange);
+  --pill-bg: rgba(255, 138, 0, 0.12);
+  --pill-border: rgba(255, 138, 0, 0.38);
+  --pill-glow: rgba(255, 138, 0, 0.32);
+  --pill-tilt: 2.5deg;
+}
+
+.skills li:nth-child(4n + 3) {
+  --pill-color: var(--pop-mint);
+  --pill-bg: rgba(6, 214, 160, 0.12);
+  --pill-border: rgba(6, 214, 160, 0.38);
+  --pill-glow: rgba(6, 214, 160, 0.32);
+  --pill-tilt: -2.5deg;
+}
+
+.skills li:nth-child(4n + 4) {
+  --pill-color: var(--pop-violet);
+  --pill-bg: rgba(131, 56, 236, 0.12);
+  --pill-border: rgba(131, 56, 236, 0.38);
+  --pill-glow: rgba(131, 56, 236, 0.32);
+  --pill-tilt: 3deg;
+}
+
+@media (prefers-color-scheme: light) {
+  .skills li:nth-child(4n + 2) {
+    --pill-color: #d97706;
+  }
+  .skills li:nth-child(4n + 3) {
+    --pill-color: #059669;
+  }
+}
+
+.skills li::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    100px circle at var(--mx) var(--my),
+    var(--pill-glow, rgba(255, 77, 141, 0.28)),
+    transparent 70%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.skills li:hover {
+  transform: translateY(-4px) scale(1.07) rotate(var(--pill-tilt, -2deg));
+  border-color: var(--pill-color);
+  box-shadow: 0 8px 20px var(--pill-glow);
+}
+
+.skills li:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Game Section — Friend Request Cards (3D Pop Tilt + Iridescent Spotlight)
+   ========================================================================== */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.game-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px 18px 20px;
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: border-color 0.3s ease, box-shadow 0.35s var(--ease-out-expo),
+    transform 0.45s var(--ease-bounce);
+  --mx: 50%;
+  --my: 50%;
+  --spot-opacity: 0;
+  --gcard-accent: var(--pop-cyan);
+  --gcard-grad: linear-gradient(135deg, #0284c7, var(--pop-cyan));
+  --gcard-stripe: linear-gradient(90deg, #0284c7, var(--pop-cyan), var(--pop-mint));
+  --gcard-glow: rgba(0, 187, 249, 0.24);
+}
+
+.game-card:nth-child(4n + 2) {
+  --gcard-accent: var(--pop-orange);
+  --gcard-grad: linear-gradient(135deg, var(--pop-orange), var(--pop-pink));
+  --gcard-stripe: linear-gradient(90deg, var(--pop-yellow), var(--pop-orange), var(--pop-pink));
+  --gcard-glow: rgba(255, 138, 0, 0.22);
+}
+
+.game-card:nth-child(4n + 3) {
+  --gcard-accent: var(--pop-violet);
+  --gcard-grad: linear-gradient(135deg, var(--pop-violet), var(--pop-cyan));
+  --gcard-stripe: linear-gradient(90deg, var(--pop-violet), var(--pop-cyan), var(--pop-mint));
+  --gcard-glow: rgba(131, 56, 236, 0.24);
+}
+
+.game-card:nth-child(4n + 4) {
+  --gcard-accent: var(--pop-pink);
+  --gcard-grad: linear-gradient(135deg, var(--pop-pink), var(--pop-violet));
+  --gcard-stripe: linear-gradient(90deg, var(--pop-pink), var(--pop-orange), var(--pop-violet));
+  --gcard-glow: rgba(255, 77, 141, 0.24);
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(300px circle at var(--mx) var(--my), var(--gcard-glow), transparent 64%),
+    radial-gradient(220px circle at calc(var(--mx) + 70px) calc(var(--my) + 50px), var(--glow-card-3), transparent 70%);
+  opacity: var(--spot-opacity);
+  transition: opacity 0.3s ease;
+}
+
+.game-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    260px circle at var(--mx) var(--my),
+    var(--gcard-accent),
+    var(--pop-yellow) 45%,
+    transparent 72%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: var(--spot-opacity);
+  transition: opacity 0.3s ease;
+}
+
+.game-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.game-card:hover {
+  border-color: var(--gcard-accent);
+  box-shadow: var(--shadow-lg);
+}
+
+.game-badge {
+  align-self: flex-start;
+  padding: 3px 11px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  background: var(--gcard-grad);
+  border-radius: var(--radius-full);
+}
+
+.game-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.game-card h3::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: var(--radius-full);
+  background: var(--gcard-stripe);
+  transition: width 0.35s var(--ease-bounce);
+}
+
+.game-card:hover h3::after {
+  width: 76px;
+}
+
+.game-note {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.game-id-box {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 14px;
+  background-color: var(--surface-subtle);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.game-id-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.game-id-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.game-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.btn-copy,
+.btn-friend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: transform 0.3s var(--ease-bounce), box-shadow 0.25s ease,
+    background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease,
+    background-position 0.35s ease;
+}
+
+.btn-copy {
+  color: var(--text);
+  background-color: var(--surface);
+  border: 2px solid var(--gcard-accent);
+  box-shadow: 0 3px 10px var(--gcard-glow);
+}
+
+.btn-copy:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px var(--gcard-glow);
+}
+
+.btn-copy:focus-visible {
+  outline: 3px solid var(--pop-pink);
+  outline-offset: 2px;
+}
+
+.btn-copy.is-copied {
+  color: #ffffff;
+  background-color: var(--pop-mint);
+  border-color: var(--pop-mint);
+  box-shadow: 0 6px 18px rgba(6, 214, 160, 0.4);
+  transform: scale(1.06);
+}
+
+.btn-friend {
+  color: #ffffff;
+  background: var(--gcard-grad);
+  background-size: 160% auto;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 14px var(--gcard-glow);
+}
+
+.btn-friend .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-bounce);
+}
+
+.btn-friend:hover {
+  transform: translateY(-2px) scale(1.04);
+  background-position: 100% center;
+  box-shadow: 0 8px 20px var(--gcard-glow);
+}
+
+.btn-friend:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Football Section — Liverpool FC Editorial Showcase
+   ========================================================================== */
+.football-section {
+  position: relative;
+  transition: background-color 0.55s ease, border-color 0.55s ease;
+}
+
+.football-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.football-header h2 {
+  margin-bottom: 0;
+}
+
+.football-eyebrow {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--lfc-red);
+}
+
+.lfc-mode-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--lfc-red);
+  background-color: var(--surface);
+  border: 1.5px solid rgba(200, 16, 46, 0.32);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease,
+    border-radius 0.45s ease, box-shadow 0.4s ease;
+}
+
+.lfc-mode-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--lfc-red);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.lfc-showcase {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: background-color 0.55s ease, border-color 0.55s ease,
+    border-radius 0.55s ease, box-shadow 0.55s ease;
+  --mx: 50%;
+  --my: 50%;
+  --lfc-sheen: 0;
+}
+
+.lfc-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(201, 162, 75, 0.14),
+    transparent 65%
+  );
+  opacity: var(--lfc-sheen);
+  transition: opacity 0.4s ease;
+}
+
+.lfc-showcase-top {
+  position: relative;
+  padding: 38px 34px 34px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--lfc-red) 0%, var(--lfc-red-deep) 68%, var(--lfc-red-dark) 100%);
+  border-bottom: 3px solid var(--lfc-gold);
+}
+
+.lfc-showcase-top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 65% 80% at 92% 18%, rgba(229, 201, 123, 0.16), transparent 65%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 36px
+    );
+}
+
+.lfc-showcase-top > * {
+  position: relative;
+  z-index: 1;
+}
+
+.lfc-est {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--lfc-gold-light);
+}
+
+.lfc-club-name {
+  margin-top: 10px;
+  font-family: var(--font-lfc-serif);
+  font-size: clamp(2.1rem, 4.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+  color: #ffffff;
+}
+
+.lfc-motto {
+  margin-top: 8px;
+  font-family: var(--font-lfc-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--lfc-gold-light);
+}
+
+.lfc-description {
+  margin-top: 18px;
+  max-width: 60ch;
+  font-family: var(--font-lfc-jp);
+  font-size: 0.96rem;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.lfc-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1px;
+  margin: 0;
+  background-color: var(--lfc-border);
+  border-bottom: 1px solid var(--lfc-border);
+  transition: background-color 0.55s ease, border-color 0.55s ease;
+}
+
+.lfc-fact {
+  padding: 20px 24px;
+  background-color: var(--lfc-surface);
+  transition: background-color 0.35s ease;
+}
+
+.lfc-fact:hover {
+  background-color: var(--lfc-surface-alt);
+}
+
+.lfc-fact dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--lfc-red);
+}
+
+.lfc-fact dd {
+  margin: 6px 0 0;
+  font-family: var(--font-lfc-jp);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--lfc-ink);
+}
+
+.lfc-footer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 26px;
+  background-color: var(--lfc-surface-alt);
+  transition: background-color 0.55s ease;
+}
+
+.lfc-chant {
+  font-family: var(--font-lfc-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--lfc-muted);
+}
+
+.lfc-official-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: var(--lfc-red);
+  border: 1px solid var(--lfc-red);
+  border-radius: 3px;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.lfc-official-link .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.lfc-official-link:hover {
+  background-color: var(--lfc-red-deep);
+  border-color: var(--lfc-gold);
+  box-shadow: 0 8px 22px rgba(200, 16, 46, 0.28);
+  transform: translateY(-1px);
+}
+
+.lfc-official-link:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Liverpool FC Official Refined UI Mode (body.theme-lfc)
+   Smooth zero-layout-shift transformation when cursor enters #football
+   ========================================================================== */
+body.theme-lfc {
+  color: var(--lfc-ink);
+  background-color: var(--lfc-bg);
+  background-image:
+    radial-gradient(ellipse 80% 45% at 50% 0%, rgba(200, 16, 46, 0.08), transparent 70%);
+}
+
+body.theme-lfc .header {
+  background-color: rgba(200, 16, 46, 0.96);
+  border-bottom-color: var(--lfc-gold);
+  box-shadow: 0 8px 28px rgba(138, 11, 32, 0.22);
+}
+
+body.theme-lfc .header::before {
+  background: linear-gradient(90deg, var(--lfc-gold), var(--lfc-gold-light), var(--lfc-gold));
+  animation: none;
+}
+
+body.theme-lfc .logo {
+  font-family: var(--font-lfc-serif);
+  background: none;
+  -webkit-text-fill-color: #ffffff;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+}
+
+body.theme-lfc .logo:hover {
+  transform: none;
+  -webkit-text-fill-color: var(--lfc-gold-light);
+  color: var(--lfc-gold-light);
+}
+
+body.theme-lfc .nav a {
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.88);
+  border-radius: 3px;
+}
+
+body.theme-lfc .nav a:hover {
+  color: var(--lfc-gold-light);
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: none;
+}
+
+body.theme-lfc .sound-toggle {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--lfc-gold-light);
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+body.theme-lfc .sound-toggle:hover {
+  color: var(--lfc-red-deep);
+  background-color: var(--lfc-gold-light);
+  border-color: var(--lfc-gold-light);
+  box-shadow: none;
+  transform: none;
+}
+
+body.theme-lfc .sound-toggle[aria-pressed="false"] {
+  color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+body.theme-lfc .hero-bg::before,
+body.theme-lfc .hero-bg::after,
+body.theme-lfc .hero-blob {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+body.theme-lfc .hero h1 {
+  font-family: var(--font-lfc-serif);
+  background: none;
+  -webkit-text-fill-color: var(--lfc-red);
+  color: var(--lfc-red);
+  filter: none;
+  animation: none;
+}
+
+body.theme-lfc .subtitle {
+  color: var(--lfc-ink);
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-border);
+  border-left: 4px solid var(--lfc-red);
+  border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(23, 20, 21, 0.06);
+}
+
+body.theme-lfc .typing-cursor {
+  background: var(--lfc-red);
+  box-shadow: none;
+}
+
+body.theme-lfc .games-label {
+  color: var(--lfc-red);
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-border);
+  border-radius: 2px;
+  box-shadow: none;
+}
+
+body.theme-lfc .games-dot {
+  background-color: var(--lfc-red);
+  box-shadow: 0 0 8px rgba(200, 16, 46, 0.5);
+}
+
+body.theme-lfc .games-dot::after {
+  border-color: var(--lfc-red);
+}
+
+body.theme-lfc .games-list li {
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-border);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(23, 20, 21, 0.06);
+}
+
+body.theme-lfc .games-list li a {
+  color: var(--lfc-ink);
+}
+
+body.theme-lfc .games-list li a::before {
+  color: var(--lfc-red);
+}
+
+body.theme-lfc .section {
+  border-top-style: solid;
+  border-top-color: var(--lfc-border);
+}
+
+body.theme-lfc .section h2 {
+  font-family: var(--font-lfc-serif);
+  letter-spacing: 0.04em;
+  color: var(--lfc-ink);
+}
+
+body.theme-lfc .section h2::after {
+  background: linear-gradient(90deg, var(--lfc-red) 0%, var(--lfc-red) 72%, var(--lfc-gold) 100%);
+  border-radius: 0;
+  animation: none;
+}
+
+body.theme-lfc .section > .container > p {
+  font-family: var(--font-lfc-jp);
+  color: var(--lfc-muted);
+}
+
+body.theme-lfc .skills li {
+  color: var(--lfc-ink);
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-border);
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+body.theme-lfc .game-card {
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-border);
+  border-radius: 4px;
+  box-shadow: 0 4px 18px rgba(23, 20, 21, 0.06);
+}
+
+body.theme-lfc .game-badge {
+  background: var(--lfc-red);
+  border-radius: 2px;
+}
+
+body.theme-lfc .game-card h3::after {
+  background: linear-gradient(90deg, var(--lfc-red), var(--lfc-gold));
+  border-radius: 0;
+}
+
+body.theme-lfc .game-id-box {
+  background-color: var(--lfc-surface-alt);
+  border-style: solid;
+  border-color: var(--lfc-border);
+  border-radius: 2px;
+}
+
+body.theme-lfc .btn-copy {
+  color: var(--lfc-ink);
+  background-color: var(--lfc-surface);
+  border-color: var(--lfc-red);
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+body.theme-lfc .btn-friend {
+  background: var(--lfc-red);
+  border-radius: 3px;
+  box-shadow: none;
+}
+
+body.theme-lfc .lfc-mode-pill {
+  color: #ffffff;
+  background-color: var(--lfc-red);
+  border-color: var(--lfc-gold);
+  border-radius: 3px;
+  box-shadow: 0 6px 18px rgba(200, 16, 46, 0.25);
+}
+
+body.theme-lfc .lfc-mode-dot {
+  background-color: var(--lfc-gold-light);
+  box-shadow: 0 0 10px var(--lfc-gold-light);
+}
+
+body.theme-lfc .lfc-showcase {
+  border-color: var(--lfc-gold);
+  border-radius: 4px;
+  box-shadow: 0 22px 54px rgba(138, 11, 32, 0.16);
+}
+
+body.theme-lfc .links a {
+  background: var(--lfc-red);
+  border-color: var(--lfc-red);
+  border-radius: 3px;
+  box-shadow: 0 6px 18px rgba(200, 16, 46, 0.22);
+}
+
+body.theme-lfc .footer {
+  border-top-style: solid;
+  border-top-color: var(--lfc-border);
+  color: var(--lfc-muted);
+}
+
+/* ==========================================================================
+   Contact Links — Colorful Magnetic Pop Buttons
+   ========================================================================== */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.links a {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--pop-pink), var(--pop-violet));
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 22px rgba(255, 77, 141, 0.28);
+  will-change: transform;
+  transition: box-shadow 0.25s ease, transform 0.35s var(--ease-bounce), filter 0.25s ease;
+  --mx: 50%;
+  --my: 50%;
+}
+
+.links a:nth-child(2n) {
+  background: linear-gradient(135deg, #0284c7, #06b6d4, var(--pop-mint));
+  box-shadow: 0 8px 22px rgba(0, 187, 249, 0.28);
+}
+
+.links a:nth-child(3n) {
+  background: linear-gradient(135deg, var(--pop-orange), var(--pop-pink));
+  box-shadow: 0 8px 22px rgba(255, 138, 0, 0.28);
+}
+
+.links a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    130px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.42),
+    transparent 68%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.links a:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 12px 28px rgba(131, 56, 236, 0.36);
+}
+
+.links a:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  padding: 36px 0;
+  border-top: 2px dashed var(--border);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: border-color 0.55s ease, color 0.55s ease;
+}
+
+/* ==========================================================================
+   Click Confetti / Pop Sparkle Particles
+   ========================================================================== */
+.pop-sparkle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--size, 9px);
+  height: var(--size, 9px);
+  border-radius: var(--spark-radius, 50%);
+  background-color: var(--spark-color, var(--pop-pink));
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  animation: sparkleBurst 680ms var(--ease-out-expo) forwards;
+}
+
+@keyframes sparkleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15)
+      rotate(var(--rot, 160deg));
+  }
+}
+
+/* ==========================================================================
+   Scroll Reveal States (Bouncy Pop Progressive Enhancement)
+   ========================================================================== */
+html.motion-ready [data-reveal] {
+  opacity: 0;
+  translate: 0 32px;
+  scale: 0.95;
+}
+
+html.motion-ready [data-reveal="pop"] {
+  translate: 0 22px;
+  scale: 0.8;
+}
+
+html.motion-ready [data-reveal="card"] {
+  translate: 0 38px;
+  scale: 0.92;
+}
+
+html.motion-ready [data-reveal].is-revealed {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+  transition:
+    opacity 0.6s var(--ease-out-expo) var(--reveal-delay, 0ms),
+    translate 0.8s var(--ease-bounce) var(--reveal-delay, 0ms),
+    scale 0.8s var(--ease-bounce) var(--reveal-delay, 0ms),
+    color 0.25s ease 0ms,
+    border-color 0.25s ease 0ms,
+    box-shadow 0.3s ease 0ms,
+    transform 0.35s var(--ease-bounce) 0ms;
+}
+
+html.motion-ready .game-card.is-tilting,
+html.motion-ready .links a.is-magnetic {
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+html.motion-ready .section h2[data-reveal]::after {
+  transform: scaleX(0);
+}
+
+html.motion-ready .section h2[data-reveal].is-revealed::after {
+  transform: scaleX(1);
+}
+
+/* ==========================================================================
+   Responsive & Accessibility
+   ========================================================================== */
+@media (max-width: 680px) {
+  .container {
+    padding-inline: 18px;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    padding-block: 10px;
+    gap: 8px 14px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .nav a {
+    padding: 5px 9px;
+    font-size: 0.85rem;
+  }
+
+  .hero {
+    padding: 80px 0 60px;
+  }
+
+  .section {
+    padding: 52px 0;
+  }
+
+  .lfc-showcase-top {
+    padding: 28px 22px 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+  }
+
+  .pop-sparkle {
+    display: none !important;
+  }
+}

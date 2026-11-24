@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>チームアダチクミン | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DotGothic16&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&family=Rampart+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">チームアダチクミン</a>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#game">Game</a>
+        <a href="#football">Football</a>
+        <a href="#contact">Contact</a>
+        <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="true" aria-label="効果音のオン・オフ切り替え">
+          <span class="sound-icon" aria-hidden="true">🔊</span>
+          <span class="sound-label">SE</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="hero-blob hero-blob-1"></span>
+        <span class="hero-blob hero-blob-2"></span>
+        <span class="hero-blob hero-blob-3"></span>
+      </div>
+      <div class="container">
+        <h1>アダチクミン</h1>
+        <p class="subtitle">Web Development(noob) / Local AI Infrastructure(noob) / System Engineering（なにそれ）
+        </p>
+        <div class="hero-games" aria-label="プレイ中のゲーム">
+          <span class="games-label">
+            <span class="games-dot" aria-hidden="true"></span>
+            NOW PLAYING
+          </span>
+          <ul class="games-list">
+            <li><a href="#game">ブロスタ</a></li>
+            <li><a href="#game">フォートナイト</a></li>
+            <li><a href="#game">Apex Legends</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <h2>About</h2>
+        <p>ゲームとサッカーを愛するシステム情報初学者</p>
+        <p>これからいろいろなことを学んででっかくなりたいなあ。</p>
+        <ul class="skills">
+          <li>HTML / CSS / JavaScript</li>
+          <li>Python / FastAPI</li>
+          <li>Local LLM (Ollama / llama.cpp)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="game" class="section">
+      <div class="container">
+        <h2>Game</h2>
+        <p>一緒に遊べるフレンド募集中！IDをコピーして申請するか、リンクから気軽に送ってください。</p>
+        <div class="game-grid">
+          <article class="game-card">
+            <span class="game-badge">PC Gaming</span>
+            <h3>Steam</h3>
+            <p class="game-note">PCゲーム全般ここで遊んでます！フレンド申請お気軽にどうぞ。</p>
+            <div class="game-id-box">
+              <span class="game-id-label">フレンドコード</span>
+              <code class="game-id-value">1195885920</code>
+            </div>
+            <div class="game-actions">
+              <button type="button" class="btn-copy" data-copy-id="1195885920">IDをコピー</button>
+              <a class="btn-friend" href="https://s.team/p/gkgk-rhjb/CDDGKGMT" target="_blank" rel="noopener noreferrer">フレンド申請 <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <span class="game-badge">Supercell ID</span>
+            <h3>ブロスタ</h3>
+            <p class="game-note">トロ上げ・ランクマなど気軽に誘ってください！</p>
+            <div class="game-id-box">
+              <span class="game-id-label">プレイヤータグ</span>
+              <code class="game-id-value">#2LJR8G8V</code>
+            </div>
+            <div class="game-actions">
+              <button type="button" class="btn-copy" data-copy-id="#2LJR8G8V">IDをコピー</button>
+              <a class="btn-friend" href="https://link.brawlstars.com/invite/friend/en/?tag=2LJR8G8V" target="_blank" rel="noopener noreferrer">フレンド申請 <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <span class="game-badge">Epic Games</span>
+            <h3>フォートナイト</h3>
+            <p class="game-note">ゼロビルドしかできません；；</p>
+            <div class="game-id-box">
+              <span class="game-id-label">Epic ディスプレイネーム</span>
+              <code class="game-id-value">マルチde坪勝</code>
+            </div>
+            <div class="game-actions">
+              <button type="button" class="btn-copy" data-copy-id="マルチde坪勝">IDをコピー</button>
+              <a class="btn-friend" href="https://www.epicgames.com/" target="_blank" rel="noopener noreferrer">Epicを開く <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <span class="game-badge">EA / Steam</span>
+            <h3>Apex Legends</h3>
+            <p class="game-note">カジュアル勢です！ランクを回すのが怖いです。</p>
+            <div class="game-id-box">
+              <span class="game-id-label">EA ID</span>
+              <code class="game-id-value">jajajaJun</code>
+            </div>
+            <div class="game-actions">
+              <button type="button" class="btn-copy" data-copy-id="jajajaJun">IDをコピー</button>
+              <a class="btn-friend" href="https://s.team/p/gkgk-rhjb/CDDGKGMT" target="_blank" rel="noopener noreferrer">フレンド申請 <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="football" class="section football-section">
+      <div class="container">
+        <div class="football-header">
+          <div>
+            <span class="football-eyebrow">SUPPORTING CLUB</span>
+            <h2>Football</h2>
+          </div>
+          <button type="button" class="lfc-mode-pill" id="lfcModePill" aria-pressed="false" aria-label="Anfieldモードの切り替え">
+            <span class="lfc-mode-dot" aria-hidden="true"></span>
+            <span class="lfc-mode-text">ANFIELD MODE</span>
+          </button>
+        </div>
+
+        <article class="lfc-showcase">
+          <div class="lfc-showcase-top">
+            <span class="lfc-est">EST. 1892 &bull; ANFIELD, LIVERPOOL</span>
+            <h3 class="lfc-club-name">Liverpool FC</h3>
+            <p class="lfc-motto">&ldquo;You&rsquo;ll Never Walk Alone&rdquo;</p>
+            <p class="lfc-description">
+            LOVE　LIVERPOOL
+            </p>
+          </div>
+
+          <dl class="lfc-facts">
+            <div class="lfc-fact">
+              <dt>STADIUM</dt>
+              <dd>Anfield</dd>
+            </div>
+            <div class="lfc-fact">
+              <dt>COLOURS</dt>
+              <dd>Liverpool Red &amp; Gold</dd>
+            </div>
+            <div class="lfc-fact">
+              <dt>FAVORITE PLAYER</dt>
+              <dd>Hugo Ekitike</dd>
+            </div>
+            <div class="lfc-fact">
+              <dt>MEMORABLE MATCH</dt>
+              <dd>LIV 2&ndash;1 WOL (2025.02.16)</dd>
+            </div>
+          </dl>
+
+          <div class="lfc-footer-bar">
+            <span class="lfc-chant">YNWA &mdash; This Means More</span>
+            <a class="lfc-official-link" href="https://www.liverpoolfc.com/" target="_blank" rel="noopener noreferrer">
+              Liverpool FC Official <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>ご連絡は以下のリンクからお願いいたします。</p>
+        <div class="links">
+          <a href="https://x.com/prks1113" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <small>© 2026 チームアダチクミン</small>
+    </div>
+  </footer>
+  <script src="script.js" defer></script>
+</body>
+</html>
