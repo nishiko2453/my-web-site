@@ -34,38 +34,70 @@
     const subtitle = document.querySelector('.hero .subtitle');
 
     if (subtitle && !prefersReducedMotion) {
-      const fullText = subtitle.textContent.replace(/\s+/g, ' ').trim();
-      const chars = Array.from(fullText);
-      subtitle.setAttribute('aria-label', fullText);
-      subtitle.textContent = '';
+      const items = Array.from(subtitle.querySelectorAll('.subtitle-item'));
+      const seps = Array.from(subtitle.querySelectorAll('.subtitle-sep'));
 
-      const textNode = document.createElement('span');
-      textNode.setAttribute('aria-hidden', 'true');
-      const cursor = document.createElement('span');
-      cursor.className = 'typing-cursor is-typing';
-      cursor.setAttribute('aria-hidden', 'true');
+      if (items.length > 0) {
+        const fullLabel = items.map((el) => el.textContent.trim()).join(' / ');
+        subtitle.setAttribute('aria-label', fullLabel);
 
-      subtitle.append(textNode, cursor);
+        const queue = [];
+        items.forEach((el, idx) => {
+          const text = el.textContent.replace(/\s+/g, ' ').trim();
+          el.textContent = '';
+          el.setAttribute('aria-hidden', 'true');
+          el.style.visibility = 'hidden';
+          queue.push({ el, chars: Array.from(text), sep: seps[idx] || null });
+          if (seps[idx]) seps[idx].style.visibility = 'hidden';
+        });
 
-      let index = 0;
-      const startDelay = 420;
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor is-typing';
+        cursor.setAttribute('aria-hidden', 'true');
 
-      const typeNext = () => {
-        if (index < chars.length) {
-          const ch = chars[index];
-          textNode.textContent += ch;
-          index += 1;
+        let itemIdx = 0;
+        let charIdx = 0;
 
-          // Playful natural typing cadence
-          let delay = 25 + Math.random() * 18;
-          if (ch === '/') delay += 95;
-          window.setTimeout(typeNext, delay);
-        } else {
-          cursor.classList.remove('is-typing');
-        }
-      };
+        const attachFirst = () => {
+          const current = queue[0];
+          current.el.style.visibility = 'visible';
+          current.textNode = document.createElement('span');
+          current.el.append(current.textNode, cursor);
+        };
 
-      window.setTimeout(typeNext, startDelay);
+        const typeNext = () => {
+          const current = queue[itemIdx];
+          if (!current) {
+            cursor.classList.remove('is-typing');
+            return;
+          }
+
+          if (charIdx < current.chars.length) {
+            current.textNode.textContent += current.chars[charIdx];
+            charIdx += 1;
+            window.setTimeout(typeNext, 24 + Math.random() * 16);
+          } else {
+            if (current.sep) current.sep.style.visibility = 'visible';
+            itemIdx += 1;
+            charIdx = 0;
+
+            if (itemIdx < queue.length) {
+              const next = queue[itemIdx];
+              next.el.style.visibility = 'visible';
+              next.textNode = document.createElement('span');
+              next.el.append(next.textNode, cursor);
+              window.setTimeout(typeNext, 110);
+            } else {
+              cursor.classList.remove('is-typing');
+            }
+          }
+        };
+
+        window.setTimeout(() => {
+          attachFirst();
+          typeNext();
+        }, 420);
+      }
     }
 
     // Smooth cursor-following candy glow + parallax on floating hero blobs

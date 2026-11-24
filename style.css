@@ -463,11 +463,15 @@ a:focus-visible {
 }
 
 .subtitle {
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
   margin-top: 22px;
   padding: 10px 18px;
   min-height: 2.6em;
-  font-size: clamp(0.92rem, 1.9vw, 1.05rem);
+  max-width: 100%;
+  font-size: clamp(0.88rem, 1.7vw, 1.02rem);
   font-weight: 600;
   color: var(--text);
   font-family: var(--font-mono);
@@ -476,6 +480,20 @@ a:focus-visible {
   border: 2px solid var(--border);
   border-radius: var(--radius-sm);
   box-shadow: 4px 4px 0 var(--pop-yellow);
+}
+
+.subtitle-item {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.subtitle-sep {
+  color: var(--pop-pink);
+  font-weight: 700;
+}
+
+body.theme-lfc .subtitle-sep {
+  color: var(--lfc-red);
 }
 
 .typing-cursor {
@@ -1758,6 +1776,32 @@ html.motion-ready .section h2[data-reveal].is-revealed::after {
 
   .hero {
     padding: 80px 0 60px;
+  }
+
+  .subtitle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: 100%;
+    padding: 10px 14px;
+    font-size: clamp(0.74rem, 3.2vw, 0.875rem);
+    line-height: 1.6;
+  }
+
+  .subtitle-sep {
+    display: none;
+  }
+
+  .subtitle-item::before {
+    content: "/";
+    margin-right: 6px;
+    color: var(--pop-pink);
+    font-weight: 700;
+  }
+
+  body.theme-lfc .subtitle-item::before {
+    color: var(--lfc-red);
   }
 
   .section {
