@@ -79,7 +79,7 @@
           soundEngine.play('intro-start');
         }
 
-        const exitDelay = skipped ? 90 : 500;
+        const exitDelay = skipped ? 90 : 350;
         window.setTimeout(() => {
           document.documentElement.classList.remove('intro-active');
           overlay.classList.add('is-exiting');
@@ -116,8 +116,8 @@
         });
       }
 
-      // Stepped retro loading cadence with brief authentic micro-pauses (~5s total incl. READY & curtain)
-      const TOTAL_DURATION = 3900;
+      // Stepped retro loading cadence with brief authentic micro-pauses (~3s total incl. READY & curtain)
+      const TOTAL_DURATION = 1950;
       const startTime = window.performance.now();
 
       const easeRetroProgress = (t) => {
@@ -129,9 +129,9 @@
       };
 
       const logSchedule = [
-        { idx: 0, showAt: 350, okAt: 1100 },
-        { idx: 1, showAt: 1400, okAt: 2550 },
-        { idx: 2, showAt: 2900, okAt: 3650 },
+        { idx: 0, showAt: 180, okAt: 550 },
+        { idx: 1, showAt: 700, okAt: 1260 },
+        { idx: 2, showAt: 1450, okAt: 1820 },
       ];
 
       logSchedule.forEach(({ idx, showAt, okAt }) => {
