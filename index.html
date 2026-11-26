@@ -280,6 +280,87 @@
       <small>© 2026 チームアダチクミン</small>
     </div>
   </footer>
+
+  <!--
+    ============================================================
+      ★ SECRET MESSAGE FOUND! ★
+
+      ソースコードまで見てくれてありがとう！
+      ここまで覗きに来てくれたあなたは立派な開発者です。
+      ゲームもサッカーも、気軽に話しかけてね！　
+      スパム 回避用
+      毛岸英是被蛋炒饭害死的
+
+　　　 You'll Never Walk Alone.
+      - チームアダチクミン
+    ============================================================
+  -->
+
+  <button type="button" class="secret-dino-trigger" id="secretDinoTrigger" aria-label="隠しミニゲームを起動" title="???">
+    <svg viewBox="0 0 12 13" width="20" height="22" shape-rendering="crispEdges" aria-hidden="true">
+      <rect x="5" y="0" width="2" height="1" fill="currentColor" />
+      <rect x="5" y="1" width="2" height="1" fill="currentColor" />
+      <rect x="2" y="2" width="8" height="1" fill="currentColor" />
+      <rect x="2" y="3" width="1" height="2" fill="currentColor" />
+      <rect x="9" y="3" width="1" height="2" fill="currentColor" />
+      <rect x="4" y="3" width="1" height="2" fill="currentColor" />
+      <rect x="7" y="3" width="1" height="2" fill="currentColor" />
+      <rect x="2" y="5" width="8" height="1" fill="currentColor" />
+      <rect x="4" y="6" width="4" height="1" fill="currentColor" />
+      <rect x="1" y="7" width="10" height="1" fill="currentColor" />
+      <rect x="0" y="8" width="3" height="1" fill="currentColor" />
+      <rect x="9" y="8" width="3" height="1" fill="currentColor" />
+      <rect x="4" y="8" width="4" height="1" fill="currentColor" />
+      <rect x="0" y="9" width="1" height="1" fill="currentColor" />
+      <rect x="2" y="9" width="8" height="1" fill="currentColor" />
+      <rect x="11" y="9" width="1" height="1" fill="currentColor" />
+      <rect x="2" y="10" width="8" height="1" fill="currentColor" />
+      <rect x="3" y="11" width="2" height="1" fill="currentColor" />
+      <rect x="7" y="11" width="2" height="1" fill="currentColor" />
+      <rect x="2" y="12" width="3" height="1" fill="currentColor" />
+      <rect x="7" y="12" width="3" height="1" fill="currentColor" />
+    </svg>
+  </button>
+
+  <div class="dino-modal" id="dinoModal" role="dialog" aria-modal="true" aria-labelledby="dinoModalTitle" hidden>
+    <div class="dino-backdrop" data-dino-close></div>
+    <div class="dino-cabinet">
+      <div class="dino-topbar">
+        <div class="dino-title-group">
+          <span class="dino-led" aria-hidden="true"></span>
+          <span class="dino-title" id="dinoModalTitle">SECRET ARCADE // ROBO RUN</span>
+        </div>
+        <div class="dino-hud">
+          <span class="dino-hi" id="dinoHiScore">HI 00000</span>
+          <span class="dino-score" id="dinoScore">00000</span>
+          <button type="button" class="dino-close" data-dino-close aria-label="ゲームを閉じる">✕</button>
+        </div>
+      </div>
+
+      <div class="dino-stage">
+        <canvas id="dinoCanvas" width="680" height="220"></canvas>
+        <div class="dino-overlay" id="dinoOverlay">
+          <p class="dino-overlay-badge" id="dinoOverlayBadge">SECRET FOUND!</p>
+          <p class="dino-overlay-heading" id="dinoOverlayHeading">ROBO RUN</p>
+          <p class="dino-overlay-sub" id="dinoOverlaySub">SPACE / ↑ / タップでスタート</p>
+          <button type="button" class="dino-action-btn" id="dinoActionBtn">START ▶</button>
+        </div>
+      </div>
+
+      <div class="dino-footer">
+        <div class="dino-hints">
+          <span><kbd>SPACE</kbd> / <kbd>↑</kbd> ジャンプ</span>
+          <span><kbd>↓</kbd> しゃがむ</span>
+          <span><kbd>ESC</kbd> 閉じる</span>
+        </div>
+        <div class="dino-touch-controls">
+          <button type="button" class="dino-pad-btn dino-pad-duck" id="dinoDuckBtn">↓ DUCK</button>
+          <button type="button" class="dino-pad-btn dino-pad-jump" id="dinoJumpBtn">↑ JUMP</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js" defer></script>
 </body>
 </html>

@@ -2143,6 +2143,386 @@ html.intro-active .intro-overlay,
 }
 
 /* ==========================================================================
+   Secret Corner Pixel Icon & Retro Dinosaur Game Modal
+   ========================================================================== */
+body.dino-open {
+  overflow: hidden;
+}
+
+.secret-dino-trigger {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 90;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text-muted);
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  opacity: 0.42;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.32s var(--ease-bounce),
+    color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.secret-dino-trigger::after {
+  content: "PLAY?";
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  background: linear-gradient(90deg, var(--pop-pink), var(--pop-violet));
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.25s var(--ease-bounce);
+}
+
+.secret-dino-trigger:hover,
+.secret-dino-trigger:focus-visible {
+  opacity: 1;
+  color: var(--pop-pink);
+  border-color: var(--pop-pink);
+  box-shadow: 3px 3px 0 var(--pop-violet);
+  transform: translateY(-3px) scale(1.08);
+  outline: none;
+}
+
+.secret-dino-trigger:hover::after,
+.secret-dino-trigger:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+body.theme-lfc .secret-dino-trigger:hover,
+body.theme-lfc .secret-dino-trigger:focus-visible {
+  color: var(--lfc-red);
+  border-color: var(--lfc-gold);
+  box-shadow: 0 4px 14px rgba(200, 16, 46, 0.28);
+}
+
+body.theme-lfc .secret-dino-trigger::after {
+  background: var(--lfc-red);
+}
+
+.dino-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9995;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.dino-modal[hidden] {
+  display: none;
+}
+
+.dino-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 6, 26, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.26s ease;
+}
+
+.dino-modal.is-open .dino-backdrop {
+  opacity: 1;
+}
+
+.dino-cabinet {
+  position: relative;
+  z-index: 1;
+  width: min(740px, 100%);
+  padding: 18px 20px 16px;
+  color: #fdf4ff;
+  font-family: var(--font-header-title);
+  background: #140e2e;
+  border: 3px solid #fdf4ff;
+  box-shadow:
+    0 0 0 3px #100b26,
+    0 0 0 6px var(--pop-violet),
+    8px 8px 0 6px rgba(255, 77, 141, 0.55),
+    0 28px 70px rgba(0, 0, 0, 0.72);
+  opacity: 0;
+  transform: scale(0.92) translateY(16px);
+  transition: opacity 0.25s ease, transform 0.38s var(--ease-bounce);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dino-cabinet::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--grad-rainbow);
+  background-size: 200% 100%;
+  animation: rainbowFlow 4s linear infinite;
+}
+
+.dino-modal.is-open .dino-cabinet {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.dino-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed rgba(196, 181, 253, 0.35);
+}
+
+.dino-title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dino-led {
+  width: 9px;
+  height: 9px;
+  background-color: #2ef2b6;
+  box-shadow: 0 0 10px #2ef2b6;
+  animation: introBlink 1s steps(1, end) infinite;
+}
+
+.dino-title {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #e9ddff;
+}
+
+.dino-hud {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.dino-hi {
+  color: #c4b5fd;
+}
+
+.dino-score {
+  color: #ffe066;
+  text-shadow: 0 0 10px rgba(255, 224, 102, 0.45);
+}
+
+.dino-score.is-flash {
+  color: #2ef2b6;
+  text-shadow: 0 0 14px rgba(46, 242, 182, 0.9);
+  transform: scale(1.15);
+  transition: transform 0.15s ease;
+}
+
+.dino-close {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fdf4ff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(196, 181, 253, 0.45);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.dino-close:hover,
+.dino-close:focus-visible {
+  color: #140e2e;
+  background-color: #ff4d8d;
+  border-color: #ff4d8d;
+  outline: none;
+}
+
+.dino-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 680 / 220;
+  background: #0e0922;
+  border: 2px solid rgba(131, 56, 236, 0.65);
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.dino-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+#dinoCanvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.dino-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  text-align: center;
+  background: rgba(14, 9, 34, 0.62);
+  transition: opacity 0.2s ease;
+}
+
+.dino-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.dino-overlay-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #2ef2b6;
+}
+
+.dino-overlay-heading {
+  font-family: var(--font-header-title);
+  font-size: clamp(1.3rem, 4vw, 1.9rem);
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 0 3px 0 var(--pop-pink);
+}
+
+.dino-overlay-sub {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #e9ddff;
+  margin-bottom: 4px;
+}
+
+.dino-action-btn {
+  padding: 7px 22px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #140e2e;
+  background: linear-gradient(90deg, #ffe066, #2ef2b6);
+  border: 2px solid #ffffff;
+  box-shadow: 3px 3px 0 var(--pop-pink);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease;
+}
+
+.dino-action-btn:hover,
+.dino-action-btn:focus-visible {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 4px 4px 0 #38d9ff;
+  outline: none;
+}
+
+.dino-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.dino-hints {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #c4b5fd;
+}
+
+.dino-hints kbd {
+  display: inline-block;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ffe066;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(196, 181, 253, 0.4);
+  border-radius: 4px;
+}
+
+.dino-touch-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dino-pad-btn {
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  background: rgba(131, 56, 236, 0.35);
+  border: 2px solid var(--pop-violet);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.dino-pad-jump {
+  background: rgba(255, 77, 141, 0.35);
+  border-color: var(--pop-pink);
+}
+
+.dino-pad-btn:active {
+  transform: scale(0.95);
+  background: var(--pop-pink);
+}
+
+/* ==========================================================================
    Click Confetti / Pop Sparkle Particles
    ========================================================================== */
 .pop-sparkle {
@@ -2307,6 +2687,41 @@ html.motion-ready .section h2[data-reveal].is-revealed::after {
   .intro-skip {
     font-size: 0.64rem;
     letter-spacing: 0.08em;
+  }
+
+  .secret-dino-trigger {
+    right: 12px;
+    bottom: 12px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .dino-cabinet {
+    padding: 14px 12px 12px;
+  }
+
+  .dino-title {
+    font-size: 0.72rem;
+  }
+
+  .dino-hud {
+    font-size: 0.8rem;
+    gap: 8px;
+  }
+
+  .dino-hints {
+    display: none;
+  }
+
+  .dino-touch-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dino-pad-btn {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 0.82rem;
   }
 }
 
