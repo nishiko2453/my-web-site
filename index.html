@@ -4,12 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>チームアダチクミン | Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23100b26'/%3E%3Crect x='3' y='3' width='10' height='2' fill='%23ff4d8d'/%3E%3Crect x='2' y='5' width='12' height='5' fill='%238338ec'/%3E%3Crect x='3' y='10' width='3' height='2' fill='%238338ec'/%3E%3Crect x='10' y='10' width='3' height='2' fill='%238338ec'/%3E%3Crect x='4' y='6' width='1' height='3' fill='%23ffd166'/%3E%3Crect x='3' y='7' width='3' height='1' fill='%23ffd166'/%3E%3Crect x='10' y='6' width='1' height='1' fill='%2306d6a0'/%3E%3Crect x='12' y='7' width='1' height='1' fill='%2300bbf9'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DotGothic16&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&family=Rampart+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DotGothic16&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Serif+JP:wght@500;700&family=Reggae+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      try {
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var force = /[?&]intro=1(?:&|$)/.test(window.location.search);
+        var seen = window.sessionStorage.getItem('portfolio-intro-seen') === 'true';
+        if (!reduced && (force || !seen)) {
+          document.documentElement.classList.add('intro-active');
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
+  <div class="intro-overlay" id="introOverlay" role="dialog" aria-modal="true" aria-label="起動演出">
+    <div class="intro-curtain intro-curtain-top" aria-hidden="true"></div>
+    <div class="intro-curtain intro-curtain-bottom" aria-hidden="true"></div>
+    <div class="intro-scanlines" aria-hidden="true"></div>
+
+    <div class="intro-stage">
+      <div class="intro-topbar">
+        <span class="intro-sys">SYS // ADACHIKUMIN OS v2.6</span>
+        <span class="intro-badge"><span class="intro-led" aria-hidden="true"></span>P1 ONLINE</span>
+      </div>
+
+      <div class="intro-brand">
+        <div class="intro-pixel-icon" aria-hidden="true">
+          <svg viewBox="0 0 16 12" width="44" height="33" shape-rendering="crispEdges">
+            <rect x="3" y="1" width="10" height="1" fill="#ff4d8d" />
+            <rect x="2" y="2" width="12" height="1" fill="#ff4d8d" />
+            <rect x="1" y="3" width="14" height="5" fill="#8338ec" />
+            <rect x="2" y="8" width="4" height="2" fill="#8338ec" />
+            <rect x="10" y="8" width="4" height="2" fill="#8338ec" />
+            <rect x="4" y="4" width="1" height="3" fill="#ffd166" />
+            <rect x="3" y="5" width="3" height="1" fill="#ffd166" />
+            <rect x="10" y="4" width="1" height="1" fill="#06d6a0" />
+            <rect x="12" y="5" width="1" height="1" fill="#00bbf9" />
+            <rect x="10" y="6" width="1" height="1" fill="#ff8a00" />
+            <rect x="7" y="6" width="2" height="1" fill="#fffbf5" />
+          </svg>
+        </div>
+        <p class="intro-kicker">CARTRIDGE INSERTED</p>
+        <p class="intro-title">チームアダチクミン</p>
+      </div>
+
+      <ul class="intro-logs" aria-hidden="true">
+        <li class="intro-log" data-log-step="0">
+          <span class="intro-log-prompt">&gt;</span>
+          <span class="intro-log-text">BOOT WEB_PORTFOLIO.EXE</span>
+          <span class="intro-log-ok">[OK]</span>
+        </li>
+        <li class="intro-log" data-log-step="1">
+          <span class="intro-log-prompt">&gt;</span>
+          <span class="intro-log-text">LOAD GAME_LOBBY (BRAWL / FN / APEX)</span>
+          <span class="intro-log-ok">[OK]</span>
+        </li>
+        <li class="intro-log" data-log-step="2">
+          <span class="intro-log-prompt">&gt;</span>
+          <span class="intro-log-text">SYNC ANFIELD_MODE // YNWA</span>
+          <span class="intro-log-ok">[OK]</span>
+        </li>
+      </ul>
+
+      <div class="intro-loader">
+        <div class="intro-loader-meta">
+          <span class="intro-status" id="introStatus">LOADING...</span>
+          <span class="intro-percent" id="introPercent">00%</span>
+        </div>
+        <div class="intro-bar-frame" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="introProgressBar">
+          <div class="intro-bar-fill" id="introBarFill"></div>
+          <div class="intro-bar-grid" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <button type="button" class="intro-skip" id="introSkip">
+        CLICK OR PRESS ANY KEY TO SKIP <span aria-hidden="true">▶▶</span>
+      </button>
+    </div>
+  </div>
+
   <header class="header">
     <div class="container header-inner">
       <a href="#" class="logo">チームアダチクミン</a>
@@ -34,7 +113,7 @@
         <span class="hero-blob hero-blob-3"></span>
       </div>
       <div class="container">
-        <h1>アダチクミン</h1>
+        <h1 data-text="アダチクミン">アダチクミン</h1>
         <p class="subtitle">
           <span class="subtitle-item">Web Development(noob)</span>
           <span class="subtitle-sep" aria-hidden="true">/</span>

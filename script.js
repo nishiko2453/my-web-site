@@ -13,6 +13,155 @@
   }
 
   /* ========================================================================
+     0. Retro Game Boot Screen Intro (First Visit Per Session)
+     ======================================================================== */
+  const initIntroBoot = (soundEngine) => {
+    const overlay = document.getElementById('introOverlay');
+    const isActive = document.documentElement.classList.contains('intro-active');
+
+    if (!overlay || !isActive || prefersReducedMotion) {
+      document.documentElement.classList.remove('intro-active');
+      if (overlay) overlay.remove();
+      return Promise.resolve();
+    }
+
+    try {
+      window.sessionStorage.setItem('portfolio-intro-seen', 'true');
+    } catch {
+      // Ignore storage errors in restricted environments
+    }
+
+    const barFill = document.getElementById('introBarFill');
+    const progressBar = document.getElementById('introProgressBar');
+    const percentEl = document.getElementById('introPercent');
+    const statusEl = document.getElementById('introStatus');
+    const skipBtn = document.getElementById('introSkip');
+    const logItems = Array.from(overlay.querySelectorAll('.intro-log'));
+
+    return new Promise((resolve) => {
+      let finished = false;
+      let rafId = null;
+      const timers = [];
+
+      const schedule = (fn, delay) => {
+        const id = window.setTimeout(fn, delay);
+        timers.push(id);
+        return id;
+      };
+
+      const setProgress = (value) => {
+        const clamped = Math.max(0, Math.min(100, Math.round(value)));
+        if (barFill) barFill.style.width = `${clamped}%`;
+        if (progressBar) progressBar.setAttribute('aria-valuenow', String(clamped));
+        if (percentEl) percentEl.textContent = `${String(clamped).padStart(2, '0')}%`;
+      };
+
+      const cleanupListeners = () => {
+        overlay.removeEventListener('click', onUserSkip);
+        window.removeEventListener('keydown', onKeySkip);
+      };
+
+      const finish = (skipped = false) => {
+        if (finished) return;
+        finished = true;
+
+        if (rafId) window.cancelAnimationFrame(rafId);
+        timers.forEach((id) => window.clearTimeout(id));
+        cleanupListeners();
+
+        setProgress(100);
+        logItems.forEach((item) => item.classList.add('is-visible', 'is-ok'));
+
+        if (statusEl) statusEl.textContent = 'READY! ★';
+        overlay.classList.add('is-ready');
+
+        if (skipped && soundEngine) {
+          soundEngine.play('intro-start');
+        }
+
+        const exitDelay = skipped ? 90 : 500;
+        window.setTimeout(() => {
+          document.documentElement.classList.remove('intro-active');
+          overlay.classList.add('is-exiting');
+
+          // Celebratory sparkle burst right as the retro curtain opens
+          if (!prefersReducedMotion) {
+            const cx = window.innerWidth / 2;
+            const cy = window.innerHeight / 2;
+            spawnBurst(cx, cy, 18);
+          }
+
+          resolve();
+
+          window.setTimeout(() => {
+            overlay.remove();
+          }, 720);
+        }, exitDelay);
+      };
+
+      const onUserSkip = () => finish(true);
+      const onKeySkip = (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        if (['Shift', 'Control', 'Alt', 'Meta', 'Tab'].includes(e.key)) return;
+        if (e.key === ' ' || e.key === 'Enter') e.preventDefault();
+        finish(true);
+      };
+
+      overlay.addEventListener('click', onUserSkip);
+      window.addEventListener('keydown', onKeySkip);
+      if (skipBtn) {
+        skipBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          finish(true);
+        });
+      }
+
+      // Stepped retro loading cadence with brief authentic micro-pauses (~5s total incl. READY & curtain)
+      const TOTAL_DURATION = 3900;
+      const startTime = window.performance.now();
+
+      const easeRetroProgress = (t) => {
+        if (t < 0.25) return (t / 0.25) * 26;
+        if (t < 0.34) return 26 + ((t - 0.25) / 0.09) * 4;
+        if (t < 0.65) return 30 + ((t - 0.34) / 0.31) * 42;
+        if (t < 0.74) return 72 + ((t - 0.65) / 0.09) * 5;
+        return 77 + ((t - 0.74) / 0.26) * 23;
+      };
+
+      const logSchedule = [
+        { idx: 0, showAt: 350, okAt: 1100 },
+        { idx: 1, showAt: 1400, okAt: 2550 },
+        { idx: 2, showAt: 2900, okAt: 3650 },
+      ];
+
+      logSchedule.forEach(({ idx, showAt, okAt }) => {
+        const el = logItems[idx];
+        if (!el) return;
+        schedule(() => el.classList.add('is-visible'), showAt);
+        schedule(() => el.classList.add('is-ok'), okAt);
+      });
+
+      const tick = (now) => {
+        if (finished) return;
+        const elapsed = now - startTime;
+        const progressRatio = Math.min(1, elapsed / TOTAL_DURATION);
+        // Quantize to 5% increments for crisp retro block feel
+        const rawPct = easeRetroProgress(progressRatio);
+        const steppedPct = progressRatio >= 1 ? 100 : Math.floor(rawPct / 5) * 5;
+        setProgress(steppedPct);
+
+        if (progressRatio < 1) {
+          rafId = window.requestAnimationFrame(tick);
+        } else {
+          finish(false);
+        }
+      };
+
+      rafId = window.requestAnimationFrame(tick);
+    });
+  };
+
+  /* ========================================================================
      1. Header Scroll Elevation
      ======================================================================== */
   const initHeaderScroll = () => {
@@ -29,7 +178,7 @@
   /* ========================================================================
      2. Hero Entrance: Typing Effect + Colorful Blob Parallax & Spotlight
      ======================================================================== */
-  const initHeroMotion = () => {
+  const initHeroMotion = (introReady = Promise.resolve()) => {
     const hero = document.querySelector('.hero');
     const subtitle = document.querySelector('.hero .subtitle');
 
@@ -93,10 +242,12 @@
           }
         };
 
-        window.setTimeout(() => {
-          attachFirst();
-          typeNext();
-        }, 420);
+        introReady.then(() => {
+          window.setTimeout(() => {
+            attachFirst();
+            typeNext();
+          }, 420);
+        });
       }
     }
 
@@ -385,6 +536,15 @@
       const jitter = 0.96 + Math.random() * 0.08;
       const isLfc = document.body.classList.contains('theme-lfc');
 
+      if (kind === 'intro-start') {
+        // Retro 8-bit game start arpeggio (C5 -> E5 -> G5 -> C6)
+        playTone(ctx, { type: 'square', freqStart: 523.25, freqEnd: 523.25, startOffset: 0, duration: 0.075, volume: 0.055 });
+        playTone(ctx, { type: 'square', freqStart: 659.25, freqEnd: 659.25, startOffset: 0.06, duration: 0.075, volume: 0.055 });
+        playTone(ctx, { type: 'square', freqStart: 783.99, freqEnd: 783.99, startOffset: 0.12, duration: 0.08, volume: 0.055 });
+        playTone(ctx, { type: 'triangle', freqStart: 1046.5, freqEnd: 1060.0, startOffset: 0.18, duration: 0.24, volume: 0.085 });
+        return;
+      }
+
       if (kind === 'lfc-enter') {
         // Refined warm Anfield harmonic swell (G4 + B4 + D5)
         playTone(ctx, { type: 'sine', freqStart: 392.0, freqEnd: 392.0, startOffset: 0, duration: 0.28, volume: 0.055 });
@@ -513,6 +673,7 @@
   const initPopSparkles = () => {
     document.addEventListener('pointerdown', (e) => {
       const target = e.target;
+      if (target.closest('#introOverlay')) return;
       const isSoundToggle = Boolean(target.closest('#soundToggle'));
       const isCopyBtn = Boolean(target.closest('[data-copy-id]'));
       const isInteractive = Boolean(
@@ -653,8 +814,9 @@
   /* ========================================================================
      Initialize
      ======================================================================== */
+  const introReady = initIntroBoot(sound);
   initHeaderScroll();
-  initHeroMotion();
+  initHeroMotion(introReady);
   initScrollReveal();
   initGameCardTilt();
   initMagneticLinksAndSkills();
